@@ -15,7 +15,7 @@ spec:
       containers:
       - name: trial
         # We advise you to build, push and use your own image, instead of using instructor's image.
-        image: chinhnv8/metrics_dashboard:trial.v1
+        image: chinhnv8/metrics_dashboard:myTrial.v1
         ports:
         - containerPort: 8080
 ---
