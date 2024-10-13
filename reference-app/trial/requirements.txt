@@ -8,6 +8,7 @@ opentelemetry-instrumentation-flask==0.39b0
 opentelemetry-instrumentation-requests==0.39b0
 opentelemetry-instrumentation==0.39b0
 opentelemetry-sdk==1.14.0
+opentelemetry-semantic-conventions==0.39b0
 prometheus-flask-exporter==0.18.1
 pylint==2.4.0
 requests==2.23.0
