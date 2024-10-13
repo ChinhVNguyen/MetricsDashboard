@@ -34,6 +34,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ./reference-app/frontend
-          file: Dockerfile
+          file: ./reference-app/frontend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/metrics_dashboard:myFrontend.v1

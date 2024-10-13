@@ -34,6 +34,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ./reference-app/backend
-          file: Dockerfile
+          file: ./reference-app/backend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/metrics_dashboard:myBackend.v1
