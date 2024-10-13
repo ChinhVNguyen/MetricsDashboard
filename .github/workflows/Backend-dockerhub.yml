@@ -36,4 +36,4 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/MetricsDashboard:myBackend.v1
+          tags: ${{ secrets.DOCKER_USERNAME }}/metrics_dashboard:myBackend.v1
