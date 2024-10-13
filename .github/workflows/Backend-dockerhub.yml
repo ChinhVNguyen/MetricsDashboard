@@ -33,7 +33,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./reference-app/backend
           file: Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/metrics_dashboard:myBackend.v1
