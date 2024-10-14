@@ -1,6 +1,5 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-default_box = "generic/opensuse15"
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -15,8 +14,8 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   # Use any version shown here https://app.vagrantup.com/opensuse/boxes/Leap-15.4.x86_64
-  config.vm.box = default_box
-  #config.vm.box_version = "15.4.13.7"
+  config.vm.box = "opensuse/Leap-15.4.x86_64"
+  config.vm.box_version = "15.4.13.7"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -39,7 +38,6 @@ Vagrant.configure("2") do |config|
   #config.vm.network "forwarded_port", guest: 8000, host: 8888
   config.vm.network "forwarded_port", guest: 8888, host: 8888
   config.vm.network "forwarded_port", guest: 8000, host: 8000
-  config.vm.network "forwarded_port", guest: 6443, host: 6443
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
