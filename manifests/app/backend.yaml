@@ -17,6 +17,7 @@ spec:
       containers:
       - name: backend-app
         image: chinhnv8/metrics_dashboard:myBackend.v1
+        imagePullPolicy: Always
         ports:
         - name: web-backend
           containerPort: 8080

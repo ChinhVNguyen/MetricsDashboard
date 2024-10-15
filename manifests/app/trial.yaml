@@ -15,6 +15,7 @@ spec:
       containers:
       - name: trial
         image: chinhnv8/metrics_dashboard:myTrial.v1
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
 ---
