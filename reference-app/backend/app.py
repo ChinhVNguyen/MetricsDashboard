@@ -33,18 +33,22 @@ def init_tracer(service):
 
     return config.initialize_tracer()
 
-tracer = init_tracer('backend')
+tracer = init_tracer('backend-app')
 tracing = FlaskTracing(tracer, True, app)
 
 @app.route("/")
 def homepage():
-    return "Hello World"
+    with tracer.start_span("homepage") as span:
+        span.set_tag("endpoint", "/")
+        return "Hello World"
 
 
 @app.route("/api")
 def my_api():
-    answer = "something"
-    return jsonify(repsonse=answer)
+    with tracer.start_span("my_api") as span:
+        answer = "something"
+        span.set_tag("response", answer)
+        return jsonify(repsonse=answer)
 
 
 @app.route("/star", methods=["POST"])
