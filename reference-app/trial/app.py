@@ -37,8 +37,6 @@ def init_tracer(service):
         validate=True,
         metrics_factory=PrometheusMetricsFactory(service_name_label=service),
     )
-
-    # this call also sets opentracing.tracer
     return config.initialize_tracer()
 
 

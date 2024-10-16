@@ -22,11 +22,23 @@ Request Response Time SLI: This measures the time taken to respond to a request.
 ## Creating SLI metrics.
 *TODO:* It is important to know why we want to measure certain metrics for our customer. Describe in detail 5 metrics to measure these SLIs. 
 
+Availability: This metric tracks the percentage of time the service is up and running. It is crucial for understanding the reliability of the service and directly relates to the monthly uptime SLI.
+ 
+Downtime Duration: Measures the total time the service is unavailable within a month. This helps identify periods of unavailability and their impact on the monthly uptime SLI.
+ 
+Error Rate: Calculates the percentage of failed requests compared to total requests. A high error rate can affect both uptime and response time, indicating issues in service reliability.
+ 
+Average Response Time: Measures the average time taken to respond to requests. This metric is essential for assessing the request response time SLI and ensuring the service meets performance expectations.
+ 
+95th Percentile Response Time: Focuses on the response time for the slowest 5% of requests. This metric helps identify outliers and ensures that most requests are handled within acceptable time limits, providing a more comprehensive view of performance.
+
 ## Create a Dashboard to measure our SLIs.
 *TODO:* Create a dashboard to measure the uptime of the frontend and backend services We will also want to measure to measure 40x and 50x errors. Create a dashboard that show these values over a 24 hour period and take a screenshot.
+![alt text](answer-img/SLI.png)
 
 ## Tracing our Flask App
 *TODO:*  We will create a Jaeger span to measure the processes on the backend. Once you fill in the span, provide a screenshot of it here. Also provide a (screenshot) sample Python file containing a trace and span code used to perform Jaeger traces on the backend service.
+
 
 ## Jaeger in Dashboards
 *TODO:* Now that the trace is running, let's add the metric to our current Grafana dashboard. Once this is completed, provide a screenshot of it here.
