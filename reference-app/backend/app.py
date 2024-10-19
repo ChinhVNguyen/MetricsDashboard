@@ -1,4 +1,3 @@
-import sys
 from flask import Flask, render_template, request, jsonify
 from flask_opentracing import FlaskTracing
 from prometheus_flask_exporter import PrometheusMetrics
@@ -9,7 +8,6 @@ import logging
 
 import pymongo
 from flask_pymongo import PyMongo
-JAEGER_HOST = getenv('JAEGER_HOST', 'localhost')
 
 
 app = Flask(__name__)
