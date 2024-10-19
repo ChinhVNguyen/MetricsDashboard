@@ -26,16 +26,17 @@ app.config[
 mongo = PyMongo(app)
 
 def init_tracer(service):
-    logging.getLogger("").handlers = []
-    logging.basicConfig(format="%(message)s", level=logging.DEBUG)
 
-    config = Config(config={'sampler': {'type': 'const', 'param': 1},
-                                'logging': True,
-                                'local_agent':
-                                # Also, provide a hostname of Jaeger instance to send traces to.
-                                {'reporting_host': JAEGER_HOST}},
-                        # Service name can be arbitrary string describing this particular web service.
-                        service_name=service)
+    config = Config(
+        config={
+            "sampler": {"type": "const", "param": 1},
+            "logging": True,
+            "reporter_batch_size": 1,
+        },
+        service_name=service,
+        validate=True,
+        metrics_factory=PrometheusMetricsFactory(service_name_label=service),
+    )
 
     # this call also sets opentracing.tracer
     return config.initialize_tracer()
