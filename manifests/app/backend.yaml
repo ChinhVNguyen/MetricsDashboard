@@ -44,10 +44,10 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: backend-app
+  name: backend
   namespace: monitoring
   labels:
-    app: backend-app
+    app: backend
     release: prometheus
 spec:
   selector:

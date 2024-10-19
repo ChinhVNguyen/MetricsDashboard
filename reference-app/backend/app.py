@@ -14,6 +14,8 @@ from flask_pymongo import PyMongo
 
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
+metrics.info("app_info", "Application info", version="1.0.3")
+
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
 
