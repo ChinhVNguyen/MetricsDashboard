@@ -1,21 +1,16 @@
+import logging
 from flask import Flask, render_template, request, jsonify
 from flask_opentracing import FlaskTracing
 from prometheus_flask_exporter import PrometheusMetrics
 from jaeger_client import Config
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
-from jaeger_client.metrics.prometheus import PrometheusMetricsFactory
-
-import logging
 
 import pymongo
 from flask_pymongo import PyMongo
 
-
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
-metrics.info("app_info", "Application info", version="1.0.3")
-
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
 
@@ -27,17 +22,14 @@ app.config[
 
 mongo = PyMongo(app)
 
+
 def init_tracer(service):
+    logging.getLogger("").handlers = []
+    logging.basicConfig(format="%(message)s", level=logging.DEBUG)
 
     config = Config(
-        config={
-            "sampler": {"type": "const", "param": 1},
-            "logging": True,
-            "reporter_batch_size": 1,
-        },
+        config={"sampler": {"type": "const", "param": 1,}, "logging": True,},
         service_name=service,
-        validate=True,
-        metrics_factory=PrometheusMetricsFactory(service_name_label=service),
     )
 
     # this call also sets opentracing.tracer
@@ -45,6 +37,7 @@ def init_tracer(service):
 
 tracer = init_tracer('backend')
 tracing = FlaskTracing(tracer, True, app)
+
 
 @app.route("/")
 def homepage():

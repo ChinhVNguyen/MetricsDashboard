@@ -8,22 +8,18 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: backend
+      app: backend-app
   template:
     metadata:
       labels:
-        app: backend
+        app: backend-app
     spec:
       containers:
       - name: backend-app
-        image: chinhnv8/metrics_dashboard:myBackend.v1
-        imagePullPolicy: Always
+        image: chinhnv8/metrics-dashboard:myBackend.v1
         ports:
         - name: web-backend
           containerPort: 8080
-        env:
-        - name: JAEGER_HOST
-          value: simplest-query.observability.svc.cluster.local
 
 ---
 kind: Service
@@ -34,7 +30,7 @@ metadata:
     app: backend-app
 spec:
   selector:
-    app: backend
+    app: backend-app
   ports:
   - name: web-backend
     port: 8081
@@ -44,16 +40,12 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: backend
-  namespace: monitoring
+  name: backend-app
   labels:
-    app: backend
     release: prometheus
 spec:
   selector:
     matchLabels:
-      app: backend
+      app: backend-app
   endpoints:
   - port: web-backend
-    path: /metrics
-    interval: 15s
