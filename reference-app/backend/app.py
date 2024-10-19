@@ -1,3 +1,4 @@
+import sys
 from flask import Flask, render_template, request, jsonify
 from flask_opentracing import FlaskTracing
 from prometheus_flask_exporter import PrometheusMetrics
