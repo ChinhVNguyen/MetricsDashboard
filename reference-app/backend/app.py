@@ -27,21 +27,14 @@ def init_tracer(service):
     logging.basicConfig(format="%(message)s", level=logging.DEBUG)
 
     config = Config(
-        config={
-            "sampler": {"type": "const", "param": 1},
-            "logging": True,
-            "reporter": {
-                "log_spans": True,
-                "agent_host": "jaeger-agent.observability.svc.cluster.local",
-                "agent_port": 6831,
-            },
-        },
+        config={"sampler": {"type": "const", "param": 1,}, "logging": True,},
         service_name=service,
     )
 
+    # this call also sets opentracing.tracer
     return config.initialize_tracer()
 
-tracer = init_tracer('backend-app')
+tracer = init_tracer('backend')
 tracing = FlaskTracing(tracer, True, app)
 
 @app.route("/")
