@@ -21,6 +21,9 @@ spec:
         ports:
         - name: web-backend
           containerPort: 8080
+        env:
+        - name: JAEGER_HOST
+          value: simplest-query.observability.svc.cluster.local
 
 ---
 kind: Service
