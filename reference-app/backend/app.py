@@ -10,7 +10,7 @@ logging.info("LOGLEVEL INFO")
 app = Flask(__name__)
 
 metrics = PrometheusMetrics(app)
-metrics.info("app_info", version="1.0.0")
+metrics.info("app_info", "Backend Application", version="1.0.0")
 
 config = Config(
     config={
