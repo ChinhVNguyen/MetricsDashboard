@@ -56,13 +56,29 @@ def my_api():
 
 @app.route("/star", methods=["POST"])
 def add_star():
-    star = mongo.db.stars
-    name = request.json["name"]
-    distance = request.json["distance"]
-    star_id = star.insert({"name": name, "distance": distance})
-    new_star = star.find_one({"_id": star_id})
-    output = {"name": new_star["name"], "distance": new_star["distance"]}
-    return jsonify({"result": output})
+    with tracer.start_span("add_star") as span:
+        # Extracting the data from the request
+        try:
+            star = mongo.db.stars
+            name = request.json["name"]
+            distance = request.json["distance"]
+
+            # Set tags for tracing
+            span.set_tag("name", name)
+            span.set_tag("distance", distance)
+
+            # Insert into the database
+            star_id = star.insert({"name": name, "distance": distance})
+            new_star = star.find_one({"_id": star_id})
+
+            output = {"name": new_star["name"], "distance": new_star["distance"]}
+            return jsonify({"result": output})
+
+        except KeyError as e:
+            # Log an error span if the expected data is missing
+            span.set_tag("error", True)
+            span.log_kv({"event": "error", "error.object": str(e)})
+            return jsonify({"error": f"Missing parameter: {str(e)}"}), 400
 
 
 if __name__ == "__main__":
