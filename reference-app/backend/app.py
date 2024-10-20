@@ -12,16 +12,19 @@ app = Flask(__name__)
 metrics = PrometheusMetrics(app)
 metrics.info("app_info", "Backend Application", version="1.0.0")
 
-config = Config(
-    config={
-        'sampler':
-        {'type': 'const',
-         'param': 1},
-                        'logging': True,
-                        'reporter_batch_size': 1,}, 
-                        service_name="service")
-jaeger_tracer = config.initialize_tracer()
-tracing = FlaskTracing(jaeger_tracer, True, app)
+def init_tracer(service):
+    config = Config(
+        config={
+            'sampler': {'type': 'const', 'param': 1},
+            'logging': True,
+            'reporter_batch_size': 1,
+        },
+        service_name=service
+    )
+    return config.initialize_tracer()
+
+tracer = init_tracer("backend-app")
+tracing = FlaskTracing(tracer, True, app)
 
 
 @app.route("/")
