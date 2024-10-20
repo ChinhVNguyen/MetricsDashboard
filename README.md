@@ -39,8 +39,7 @@ Average Response Time: Measures the average time taken to respond to requests. T
 ## Tracing our Flask App
 *TODO:*  We will create a Jaeger span to measure the processes on the backend. Once you fill in the span, provide a screenshot of it here. Also provide a (screenshot) sample Python file containing a trace and span code used to perform Jaeger traces on the backend service.
 ![alt text](answer-img/Jaeger-Backend_api.png)
-![alt text](image.png)
-
+![alt text](answer-img/Jaeger-Code-Span.png)
 ## Jaeger in Dashboards
 *TODO:* Now that the trace is running, let's add the metric to our current Grafana dashboard. Once this is completed, provide a screenshot of it here.
 ![alt text](answer-img/Jaeger-Grafana.png)
@@ -92,6 +91,8 @@ Error Rate: The percentage of requests or queries that fail or return an error c
 *TODO*: Create a Dashboard containing graphs that capture all the metrics of your KPIs and adequately representing your SLIs and SLOs. Include a screenshot of the dashboard here, and write a text description of what graphs are represented in the dashboard.  
 
 ![alt text](answer-img/Final_dashboard.png)
-Availability: The displays the percentage of time the backend app is available 
+Availability: The displays the percentage of time the backend app is available
+
 Error Rate: This displays the number of 5xx status codes from backend
+
 Response Time: The amount of time it takes for the system to respond to a customer request or query
