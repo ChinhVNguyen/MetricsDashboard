@@ -1,4 +1,4 @@
-from flask import Flask, json, render_template
+from flask import Flask, json, render_template, jsonify, request
 from prometheus_flask_exporter import PrometheusMetrics
 import logging
 from jaeger_client import Config

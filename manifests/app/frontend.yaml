@@ -2,49 +2,48 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-app
-  annotations:
-    sidecar.jaegertracing.io/inject: "true"
-    prometheus.io/scrape: "true"
-    prometheus.io/path: /metrics
-    prometheus.io/port: frontendport
-  labels:
-    name: frontend
-    release: prometheus
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: frontend
+      app: frontend-app
   template:
     metadata:
       labels:
-        app: frontend
+        app: frontend-app
     spec:
       containers:
-      - name: frontend
-        imagePullPolicy: Always
+      - name: frontend-app
         image: chinhnv8/metrics_dashboard:myFrontend.v1
         ports:
-        - name: frontendport
+        - name: web
           containerPort: 8080
-          protocol: TCP
-        env:
-        - name: JAEGER_HOST
-          value: simplest-query.observability.svc.cluster.local
+
 ---
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
-  name: frontend-service
+  name: frontend-app
   labels:
-    app: frontend
+    app: frontend-app
 spec:
   selector:
-    app: frontend
+    app: frontend-app
   ports:
-    - name: frontend
-      protocol: TCP
-      port: 80
-      targetPort: frontendport
-      nodePort: 30001
-  type: NodePort
+  - name: web
+    port: 8080
+    
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: frontend-app
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: frontend-app
+  endpoints:
+  - port: web
