@@ -17,6 +17,14 @@ spec:
       containers:
       - name: backend-app
         image: chinhnv8/metrics_dashboard:myBackend.v1
+        imagePullPolicy: Always
+        ports:
+        - name: backendport
+          containerPort: 8080
+          protocol: TCP
+        env:
+        - name: JAEGER_HOST
+          value: simplest-query.observability.svc.cluster.local
         ports:
         - name: web-backend
           containerPort: 8080
